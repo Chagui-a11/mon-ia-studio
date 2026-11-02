@@ -84,43 +84,80 @@ Un espace pour apprendre, créer et imaginer.</p>
 
 <footer>© 2026 Chagui Ia · Créé avec ambition</footer>
 
+
 <script>
-const chat=document.getElementById("chat");
-const promptBox=document.getElementById("prompt");
+const chat = document.getElementById("chat");
+const promptBox = document.getElementById("prompt");
 
-function suggest(text){
-promptBox.value=text;
-promptBox.focus();
+let history = [];
+
+try {
+  history = JSON.parse(
+    localStorage.getItem("monIAHistory") || "[]"
+  );
+} catch (e) {
+  history = [];
 }
 
-function sendMessage(){
-const message=promptBox.value.trim();
-if(!message)return;
-
-document.getElementById("welcome").style.display="none";
-document.getElementById("cards").style.display="none";
-
-const user=document.createElement("div");
-user.className="message user";
-user.textContent=message;
-chat.appendChild(user);
-
-promptBox.value="";
-
-const bot=document.createElement("div");
-bot.className="message bot";
-bot.textContent="Bienvenue dans Mon IA Studio ! Votre message a bien été reçu. Je suis actuellement en mode démonstration. Le véritable moteur d'intelligence artificielle sera connecté dans une prochaine étape.";
-chat.appendChild(bot);
-
-window.scrollTo(0,document.body.scrollHeight);
+function saveHistory() {
+  localStorage.setItem(
+    "monIAHistory",
+    JSON.stringify(history)
+  );
 }
 
-promptBox.addEventListener("keydown",function(e){
-if(e.key==="Enter"&&!e.shiftKey){
-e.preventDefault();
-sendMessage();
+function displayMessage(message, type) {
+  const element = document.createElement("div");
+  element.className = "message " + type;
+  element.textContent = message;
+  chat.appendChild(element);
 }
+
+function loadHistory() {
+  if (history.length > 0) {
+    document.getElementById("welcome").style.display = "none";
+    document.getElementById("cards").style.display = "none";
+
+    history.forEach(item => {
+      displayMessage(item.text, item.type);
+    });
+  }
+}
+
+function suggest(text) {
+  promptBox.value = text;
+  promptBox.focus();
+}
+
+function sendMessage() {
+  const message = promptBox.value.trim();
+  if (!message) return;
+
+  document.getElementById("welcome").style.display = "none";
+  document.getElementById("cards").style.display = "none";
+
+  history.push({ text: message, type: "user" });
+  displayMessage(message, "user");
+
+  const answer = "Bienvenue dans Mon IA Studio ! Votre message est conservé. Le moteur d'intelligence artificielle sera connecté dans une prochaine étape.";
+
+  history.push({ text: answer, type: "bot" });
+  displayMessage(answer, "bot");
+
+  saveHistory();
+  promptBox.value = "";
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+promptBox.addEventListener("keydown", function(e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
 });
+
+loadHistory();
 </script>
+  
 </body>
 </html>
