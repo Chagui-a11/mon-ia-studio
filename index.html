@@ -1,31 +1,126 @@
-<!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mon IA Studio</title>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101426">
+<title>Mon IA Studio</title>
 <style>
-:root{color-scheme:light dark;--bg:#f6f4ff;--ink:#201c35;--primary:#6d4aff;--panel:#17152b}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-header{padding:18px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ddd8ef}.brand{font-weight:800;font-size:20px}.logo{display:inline-grid;place-items:center;background:var(--primary);color:white;width:34px;height:34px;border-radius:11px;margin-right:8px}
-nav a{color:inherit;text-decoration:none;margin-left:18px;font-size:14px}main{max-width:1050px;margin:auto;padding:55px 22px}.hero{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
-.tag{color:var(--primary);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(38px,7vw,64px);line-height:1.03;letter-spacing:-2px;margin:14px 0}
-p{line-height:1.65;color:#716b83}.visual{background:var(--panel);color:white;border-radius:25px;padding:25px;min-height:290px;display:grid;place-items:center;text-align:center}.orb{width:110px;height:110px;margin:0 auto 20px;border-radius:42% 58% 60% 40%;transform:rotate(-20deg);background:linear-gradient(135deg,#f5c8ff,#8065ff 55%,#3bd9cf)}
-button{background:var(--primary);color:white;border:0;border-radius:12px;padding:13px 18px;font-weight:700;font-size:15px;cursor:pointer}.secondary{background:transparent;color:var(--ink);border:1px solid #c9c3da;margin-left:8px}
-section.tools{margin-top:65px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:white;border:1px solid #e5e0f2;border-radius:16px;padding:18px}.card b{display:block;margin:9px 0}
-.studio{margin-top:35px;background:var(--panel);color:white;border-radius:22px;padding:24px}.studio p{color:#c8c1dc}.studio label{display:block;font-size:13px;margin:15px 0 7px}
-textarea,select{width:100%;padding:12px;border:1px solid #5a5470;border-radius:10px;background:#24213a;color:white;font:inherit}textarea{min-height:100px}.result{margin-top:15px;padding:16px;border:1px dashed #77708d;border-radius:12px;color:#ddd8ed;white-space:pre-wrap}
-footer{text-align:center;padding:25px;color:#777}@media(max-width:720px){.hero{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}nav{display:none}}@media(max-width:420px){.cards{grid-template-columns:1fr}}
-</style></head><body>
-<header><div class="brand"><span class="logo">M</span>Mon IA Studio</div><nav><a href="#outils">Outils</a><a href="#studio">Studio</a></nav></header>
-<main><div class="hero"><div><div class="tag">Ton univers créatif avec l'IA</div><h1>Donne vie à tes idées.</h1>
-<p>Un espace pour imaginer des visuels, inventer des personnages et préparer tes contenus. Cette première version est une maquette : elle prépare tes idées, mais n'est pas encore connectée à un moteur IA.</p>
-<button onclick="document.querySelector('#studio').scrollIntoView({behavior:'smooth'})">Découvrir le studio</button> <button class="secondary" onclick="document.querySelector('#outils').scrollIntoView({behavior:'smooth'})">Voir les outils</button></div>
-<div class="visual"><div><div class="orb"></div><strong>Imagine sans limites.</strong><p style="color:#c8c1dc">Ton idée est le point de départ.</p></div></div></div>
-<section class="tools" id="outils"><h2>Un studio, plusieurs possibilités.</h2><p>Les outils que nous pourrons ajouter progressivement.</p><div class="cards">
-<div class="card">✦<b>Images IA</b><small>Créer des concepts visuels.</small></div><div class="card">◉<b>Personnages IA</b><small>Imaginer des personnages virtuels.</small></div><div class="card">▶<b>Vidéos</b><small>Préparer des idées de vidéos.</small></div><div class="card">✎<b>Assistant d'écriture</b><small>Rédiger des textes et des scripts.</small></div></div></section>
-<section class="studio" id="studio"><div class="tag">Mini démonstration</div><h2>Décris ton idée.</h2><p>Cette maquette organise ton idée en prompt à copier. La génération d'image réelle sera ajoutée plus tard.</p>
-<label for="idea">Ton idée</label><textarea id="idea" placeholder="Ex. : Un portrait lumineux d'un personnage futuriste..."></textarea>
-<label for="kind">Type de création</label><select id="kind"><option>Image réaliste</option><option>Personnage virtuel</option><option>Idée de vidéo</option><option>Texte pour réseaux sociaux</option></select>
-<label for="style">Style</label><select id="style"><option>Cinématographique</option><option>Photographie naturelle</option><option>Illustration 3D</option><option>Minimaliste</option></select>
-<button style="margin-top:14px" onclick="prepare()">Préparer ma création</button><div class="result" id="result">Ton prompt apparaîtra ici.</div></section></main>
-<footer>Mon IA Studio · Première version du projet</footer>
+*{box-sizing:border-box}
+body{margin:0;background:#101426;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px;border-bottom:1px solid #29304a;display:flex;align-items:center;gap:12px}
+.logo{background:#7957f5;padding:12px;border-radius:13px;font-size:22px}
+header h2{margin:0;font-size:20px}
+header small{color:#a6aac0}
+main{max-width:750px;margin:auto;padding:25px 16px}
+.welcome{text-align:center;margin:65px 0 35px}
+.welcome h1{font-size:32px;margin-bottom:10px}
+.welcome p{color:#a6aac0;line-height:1.6}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:25px 0}
+.card{background:#1b2239;border:1px solid #303957;border-radius:14px;padding:16px;color:white;cursor:pointer}
+.card:hover{border-color:#7957f5}
+.card b{display:block;margin-bottom:8px}
+.card small{color:#a6aac0}
+#chat{display:flex;flex-direction:column;gap:14px;margin:25px 0}
+.message{padding:14px 16px;border-radius:15px;line-height:1.6;max-width:90%;white-space:pre-wrap}
+.user{background:#6849df;align-self:flex-end}
+.bot{background:#202943;align-self:flex-start}
+.input-area{position:sticky;bottom:0;background:#101426;padding:12px 0 20px}
+.input-box{display:flex;gap:8px;background:#1b2239;padding:9px;border:1px solid #39425e;border-radius:15px}
+textarea{flex:1;background:transparent;border:0;outline:0;color:white;resize:none;padding:12px;font-size:15px;min-width:0}
+button{background:#7957f5;color:white;border:0;border-radius:11px;padding:12px 17px;font-size:16px;cursor:pointer}
+button:disabled{opacity:.5}
+.note{text-align:center;color:#9299b2;font-size:11px;margin-top:12px}
+footer{text-align:center;color:#737c99;padding:25px;font-size:12px}
+@media(max-width:400px){.welcome h1{font-size:26px}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">✦</div>
+<div>
+<h2>Mon IA Studio</h2>
+<small>Votre espace d'intelligence artificielle</small>
+</div>
+</header>
+
+<main>
+<div class="welcome" id="welcome">
+<h1>Bonjour ! 👋</h1>
+<p>Bienvenue sur Mon IA Studio.<br>
+Un espace pour apprendre, créer et imaginer.</p>
+</div>
+
+<div class="cards" id="cards">
+<div class="card" onclick="suggest('Aide-moi à écrire un beau texte.')">
+<b>✍️ Rédaction</b>
+<small>Écrire et améliorer des textes</small>
+</div>
+<div class="card" onclick="suggest('Donne-moi des idées de petits projets.')">
+<b>💡 Idées</b>
+<small>Imaginer de nouveaux projets</small>
+</div>
+<div class="card" onclick="suggest('Explique-moi un sujet simplement.')">
+<b>📚 Apprentissage</b>
+<small>Comprendre et apprendre</small>
+</div>
+<div class="card" onclick="suggest('Aide-moi à préparer un projet numérique.')">
+<b>🚀 Création</b>
+<small>Développer ses idées</small>
+</div>
+</div>
+
+<div id="chat"></div>
+
+<div class="input-area">
+<div class="input-box">
+<textarea id="prompt" rows="1" placeholder="Écrivez votre message..."></textarea>
+<button id="send" onclick="sendMessage()">➤</button>
+</div>
+<div class="note">Mode démonstration · Connexion au véritable moteur IA à venir</div>
+</div>
+</main>
+
+<footer>© 2026 Mon IA Studio · Créé avec ambition</footer>
+
 <script>
-function prepare(){const idea=document.getElementById('idea').value.trim(),kind=document.getElementById('kind').value,style=document.getElementById('style').value,result=document.getElementById('result');if(!idea){result.textContent="Écris d'abord une idée.";return;}result.textContent="Type : "+kind+"\nStyle : "+style+"\n\n"+idea+". Résultat souhaité : création soignée, cohérente et de haute qualité.";const copy=document.createElement('button');copy.textContent="Copier le prompt";copy.style.marginTop="12px";copy.onclick=()=>navigator.clipboard.writeText(result.textContent).then(()=>alert("Prompt copié !"));result.appendChild(document.createElement("br"));result.appendChild(copy);}
-</script></body></html>
+const chat=document.getElementById("chat");
+const promptBox=document.getElementById("prompt");
+
+function suggest(text){
+promptBox.value=text;
+promptBox.focus();
+}
+
+function sendMessage(){
+const message=promptBox.value.trim();
+if(!message)return;
+
+document.getElementById("welcome").style.display="none";
+document.getElementById("cards").style.display="none";
+
+const user=document.createElement("div");
+user.className="message user";
+user.textContent=message;
+chat.appendChild(user);
+
+promptBox.value="";
+
+const bot=document.createElement("div");
+bot.className="message bot";
+bot.textContent="Bienvenue dans Mon IA Studio ! Votre message a bien été reçu. Je suis actuellement en mode démonstration. Le véritable moteur d'intelligence artificielle sera connecté dans une prochaine étape.";
+chat.appendChild(bot);
+
+window.scrollTo(0,document.body.scrollHeight);
+}
+
+promptBox.addEventListener("keydown",function(e){
+if(e.key==="Enter"&&!e.shiftKey){
+e.preventDefault();
+sendMessage();
+}
+});
+</script>
+</body>
+</html>
