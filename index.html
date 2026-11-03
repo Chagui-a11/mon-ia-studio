@@ -48,7 +48,40 @@ footer{background:var(--dark);color:#c7c1da;text-align:center;padding:25px;font-
 </main><footer>CHAGUI IA · L'intelligence artificielle au service de tes idées. · Prototype de site — pas encore connecté à un service d'intelligence artificielle.</footer>
 <script>
 function makePrompt(){const idea=document.getElementById('prompt').value.trim(),type=document.getElementById('type').value,style=document.getElementById('style').value,out=document.getElementById('output');if(!idea){out.textContent='Ajoute d’abord une idée et décris ce que tu souhaites créer.';return;}const safe=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));out.innerHTML='<strong>Prompt préparé : '+safe(type)+' · '+safe(style)+'</strong><p>'+safe(idea)+'. Style demandé : '+safe(style)+'. Résultat souhaité : création soignée, cohérente et de haute qualité.</p><button class="primary" onclick="copyPrompt()">Copier le prompt</button>';}
-function showChatNotice(e){e.preventDefault();const q=document.getElementById('chat-question').value.trim();if(q)document.getElementById('chat-status').textContent='Ton espace de discussion est prêt pour la connexion. Pour le moment, CHAGUI IA ne peut pas encore répondre : le moteur IA sécurisé doit être configuré.';}
+async function showChatNotice(event) {
+  event.preventDefault();
+
+  const question = document.getElementById('chat-question').value.trim();
+  const status = document.getElementById('chat-status');
+
+  if (!question) return;
+
+  status.textContent = "CHAGUI IA réfléchit...";
+
+  try {
+    const response = await fetch(
+      "https://chagui-ia-ap.edahchagui.workers.dev/chat",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: question })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Erreur de connexion");
+    }
+
+    status.textContent = data.response;
+
+  } catch (error) {
+    status.textContent = "Impossible de contacter CHAGUI IA. Réessaie plus tard.";
+  }
+}
 function copyPrompt(){const v=document.getElementById('prompt').value.trim()+'. Type : '+document.getElementById('type').value+'. Style : '+document.getElementById('style').value+'.';if(navigator.clipboard?.writeText)navigator.clipboard.writeText(v).then(()=>alert('Prompt copié !')).catch(()=>alert(v));else alert(v);}
 </script>
 </body>
