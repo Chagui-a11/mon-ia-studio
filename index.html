@@ -1,165 +1,55 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101426">
-<title>Chagui Ia</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHAGUI IA</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#101426;color:#fff;font-family:Arial,sans-serif}
-header{padding:20px;border-bottom:1px solid #29304a;display:flex;align-items:center;gap:12px}
-.logo{background:#7957f5;padding:12px;border-radius:13px;font-size:22px}
-header h2{margin:0;font-size:20px}
-header small{color:#a6aac0}
-main{max-width:750px;margin:auto;padding:25px 16px}
-.welcome{text-align:center;margin:65px 0 35px}
-.welcome h1{font-size:32px;margin-bottom:10px}
-.welcome p{color:#a6aac0;line-height:1.6}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:25px 0}
-.card{background:#1b2239;border:1px solid #303957;border-radius:14px;padding:16px;color:white;cursor:pointer}
-.card:hover{border-color:#7957f5}
-.card b{display:block;margin-bottom:8px}
-.card small{color:#a6aac0}
-#chat{display:flex;flex-direction:column;gap:14px;margin:25px 0}
-.message{padding:14px 16px;border-radius:15px;line-height:1.6;max-width:90%;white-space:pre-wrap}
-.user{background:#6849df;align-self:flex-end}
-.bot{background:#202943;align-self:flex-start}
-.input-area{position:sticky;bottom:0;background:#101426;padding:12px 0 20px}
-.input-box{display:flex;gap:8px;background:#1b2239;padding:9px;border:1px solid #39425e;border-radius:15px}
-textarea{flex:1;background:transparent;border:0;outline:0;color:white;resize:none;padding:12px;font-size:15px;min-width:0}
-button{background:#7957f5;color:white;border:0;border-radius:11px;padding:12px 17px;font-size:16px;cursor:pointer}
-button:disabled{opacity:.5}
-.note{text-align:center;color:#9299b2;font-size:11px;margin-top:12px}
-footer{text-align:center;color:#737c99;padding:25px;font-size:12px}
-@media(max-width:400px){.welcome h1{font-size:26px}.cards{grid-template-columns:1fr}}
+:root{--p:#6D4AFF;--bg:#F6F4FF;--fg:#201C35;--dark:#17152B}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 5%;border-bottom:1px solid #ddd}
+.brand{font-size:20px;font-weight:800}.logo{display:inline-grid;place-items:center;background:var(--p);color:white;width:36px;height:36px;border-radius:12px;margin-right:8px}
+nav{display:flex;gap:22px;font-size:13px}a{color:inherit;text-decoration:none}
+.hero{max-width:1180px;margin:auto;padding:70px 24px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.eyebrow{color:var(--p);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+h1{font-size:clamp(42px,6vw,70px);line-height:1.02;letter-spacing:-.06em;margin:16px 0}
+.lead{font-size:17px;line-height:1.7;color:#625d75}
+button{font:inherit;cursor:pointer;border:0}.primary{background:var(--p);color:white;border-radius:13px;padding:14px 19px;font-weight:750}.secondary{background:transparent;border:1px solid #bbb;border-radius:13px;padding:14px 19px;margin-left:8px}
+.preview{background:var(--dark);color:white;border-radius:26px;padding:24px;min-height:330px;display:grid;place-items:center;text-align:center}
+.orb{width:118px;height:118px;border-radius:45%;background:linear-gradient(135deg,#f5c8ff,#7e65ff 55%,#3bd9cf);margin:0 auto 20px;transform:rotate(-18deg)}
+.section{max-width:1180px;margin:auto;padding:35px 24px 65px}.section h2{font-size:30px;margin-bottom:10px}
+.sub{color:#625d75;line-height:1.6}.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tool{background:white;border:1px solid #e5e1f0;border-radius:18px;padding:20px;min-height:150px}.ico{font-size:24px;margin-bottom:14px}.tool h3{margin:0 0 8px}.tool p{font-size:13px;line-height:1.5;color:#625d75;margin:0}
+.chat-panel{max-width:850px;margin:20px auto;background:white;border:1px solid #e5e1f0;border-radius:22px;padding:24px}
+.chat-panel p{font-size:13px;line-height:1.6;color:#625d75}.chat-form{display:flex;gap:10px}
+.chat-form input{flex:1;min-width:0;padding:13px;border:1px solid #ccc;border-radius:12px;font:inherit}
+.chat-status{margin-top:12px;padding:12px;border-radius:12px;background:#f0ecff;font-size:12px;line-height:1.5}
+.demo{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;background:var(--dark);color:white;border-radius:24px;padding:26px;margin-top:30px}
+.demo p{color:#c7c2d9;font-size:13px;line-height:1.6}label{display:block;font-size:12px;font-weight:700;margin:12px 0 8px}
+textarea,select{width:100%;border:1px solid #ffffff40;background:#211e37;color:white;border-radius:12px;padding:13px;font:inherit}textarea{min-height:105px}
+.demo-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.demo .primary{margin-top:14px}
+.output{grid-column:1/-1;border:1px dashed #ffffff55;border-radius:17px;min-height:150px;padding:22px;color:#ddd;text-align:center}
+footer{background:var(--dark);color:#c7c1da;text-align:center;padding:25px;font-size:12px}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:45px}.tools{grid-template-columns:repeat(2,1fr)}.demo{grid-template-columns:1fr}nav a:not(.pill){display:none}}
+@media(max-width:480px){.tools,.demo-controls{grid-template-columns:1fr}.chat-form{flex-direction:column}.secondary{margin:10px 0 0}}
 </style>
 </head>
 <body>
-<header>
-<div class="logo">✦</div>
-<div>
-<h2>Chagui IA</h2>
-<small>Votre espace d'intelligence artificielle</small>
-</div>
-</header>
-
+<header><div class="brand"><span class="logo">C</span>CHAGUI IA</div><nav><a href="#outils">Outils</a><a href="#assistant">Assistant</a><a href="#demo">Démo</a></nav></header>
 <main>
-<div class="welcome" id="welcome">
-<h1>Bonjour ! 👋</h1>
-<p>Bienvenue sur Chagui IA.<br>
-Un espace pour apprendre, créer et imaginer.</p>
-</div>
-
-<div class="cards" id="cards">
-<div class="card" onclick="suggest('Aide-moi à écrire un beau texte.')">
-<b>✍️ Rédaction</b>
-<small>Écrire et améliorer des textes</small>
-</div>
-<div class="card" onclick="suggest('Donne-moi des idées de petits projets.')">
-<b>💡 Idées</b>
-<small>Imaginer de nouveaux projets</small>
-</div>
-<div class="card" onclick="suggest('Explique-moi un sujet simplement.')">
-<b>📚 Apprentissage</b>
-<small>Comprendre et apprendre</small>
-</div>
-<div class="card" onclick="suggest('Aide-moi à préparer un projet numérique.')">
-<b>🚀 Création</b>
-<small>Développer ses idées</small>
-</div>
-</div>
-<button onclick="newConversation()">
-  + Nouvelle conversation
-</button>
-<div id="chat"></div>
-
-<div class="input-area">
-<div class="input-box">
-<textarea id="prompt" rows="1" placeholder="Écrivez votre message..."></textarea>
-<button id="send" onclick="sendMessage()">➤</button>
-</div>
-<div class="note">Mode démonstration · Connexion au véritable moteur IA à venir</div>
-</div>
-</main>
-
-<footer>© 2026 Chagui Ia · Créé avec ambition</footer>
-
-
+<section class="hero"><div><div class="eyebrow">Ton univers créatif, propulsé par l'IA</div><h1>Donne vie à tes idées.</h1><p class="lead">Un espace pour imaginer des visuels, inventer des personnages et préparer tes contenus. Commence simplement, puis fais grandir ta propre plateforme IA.</p><button class="primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Découvrir le studio ↗</button><button class="secondary" onclick="document.getElementById('outils').scrollIntoView({behavior:'smooth'})">Voir les outils</button></div><div class="preview"><div><div class="orb"></div><strong>Imagine sans limites.</strong><p>Ton idée est le point de départ.</p></div></div></section>
+<section class="section" id="assistant"><div class="chat-panel"><div class="eyebrow">Assistant CHAGUI IA</div><h2>Discute avec ton futur assistant.</h2><p>Pose une question pour tester l'espace de discussion. La connexion au moteur d'intelligence artificielle reste à configurer.</p><form class="chat-form" onsubmit="showChatNotice(event)"><input id="chat-question" type="text" placeholder="Écris ta question ici…" aria-label="Ta question" required><button class="primary" type="submit">Envoyer</button></form><div class="chat-status" id="chat-status" role="status">Prototype : l'assistant n'est pas encore connecté. Aucun message n'est envoyé ni traité.</div></div></section>
+<section class="section" id="outils"><h2>Un studio, plusieurs possibilités.</h2><p class="sub">Les modules que ta plateforme pourra proposer à ses utilisateurs.</p><div class="tools">
+<article class="tool"><div class="ico">✦</div><h3>Générateur d'images</h3><p>Transforme une description en concept visuel.</p></article>
+<article class="tool"><div class="ico">◉</div><h3>Personnages IA</h3><p>Imagine des personnages virtuels avec une identité.</p></article>
+<article class="tool"><div class="ico">▶</div><h3>Création vidéo</h3><p>Prépare des idées de scènes et de vidéos courtes.</p></article>
+<article class="tool"><div class="ico">✎</div><h3>Assistant d'écriture</h3><p>Rédige des scripts, légendes et idées de contenu.</p></article></div>
+<div class="demo" id="demo"><div><div class="eyebrow">Mini démonstration</div><h2>Décris ton idée.</h2><p>Cette démonstration prépare un prompt créatif ; elle ne génère pas encore une vraie image, car aucun moteur IA n'est connecté.</p></div><div><label for="prompt">Ton idée</label><textarea id="prompt" placeholder="Ex. : Un portrait cinématographique dans une ville lumineuse..."></textarea><div class="demo-controls"><div><label for="type">Type de création</label><select id="type"><option>Image réaliste</option><option>Personnage virtuel</option><option>Idée de vidéo</option><option>Texte pour réseaux sociaux</option></select></div><div><label for="style">Style</label><select id="style"><option>Cinématographique</option><option>Photographie naturelle</option><option>Illustration 3D</option><option>Minimaliste</option></select></div></div><button class="primary" onclick="makePrompt()">Préparer ma création ✨</button><p>Prototype d'interface — aucune génération ni facturation réelle.</p></div><div class="output" id="output">Ton espace de création t'attend. Écris une idée puis appuie sur « Préparer ma création ».</div></div></section>
+</main><footer>CHAGUI IA · L'intelligence artificielle au service de tes idées. · Prototype de site — pas encore connecté à un service d'intelligence artificielle.</footer>
 <script>
-const chat = document.getElementById("chat");
-const promptBox = document.getElementById("prompt");
-
-let history = [];
-
-try {
-  history = JSON.parse(
-    localStorage.getItem("monIAHistory") || "[]"
-  );
-} catch (e) {
-  history = [];
-}
-
-function saveHistory() {
-  localStorage.setItem(
-    "monIAHistory",
-    JSON.stringify(history)
-  );
-}
-
-function displayMessage(message, type) {
-  const element = document.createElement("div");
-  element.className = "message " + type;
-  element.textContent = message;
-  chat.appendChild(element);
-}
-
-function loadHistory() {
-  if (history.length > 0) {
-    document.getElementById("welcome").style.display = "none";
-    document.getElementById("cards").style.display = "none";
-
-    history.forEach(item => {
-      displayMessage(item.text, item.type);
-    });
-  }
-}
-
-function suggest(text) {
-  promptBox.value = text;
-  promptBox.focus();
-}
-
-function sendMessage() {
-  const message = promptBox.value.trim();
-  if (!message) return;
-
-  document.getElementById("welcome").style.display = "none";
-  document.getElementById("cards").style.display = "none";
-
-  history.push({ text: message, type: "user" });
-  displayMessage(message, "user");
-
-  const answer = "Bienvenue sur Chagui IA ! Votre message est conservé. Notre intelligence artificielle évolue progressivement.";
-
-  history.push({ text: answer, type: "bot" });
-  displayMessage(answer, "bot");
-
-  saveHistory();
-  promptBox.value = "";
-  window.scrollTo(0, document.body.scrollHeight);
-}
-
-promptBox.addEventListener("keydown", function(e) {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-loadHistory();
+function makePrompt(){const idea=document.getElementById('prompt').value.trim(),type=document.getElementById('type').value,style=document.getElementById('style').value,out=document.getElementById('output');if(!idea){out.textContent='Ajoute d’abord une idée et décris ce que tu souhaites créer.';return;}const safe=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));out.innerHTML='<strong>Prompt préparé : '+safe(type)+' · '+safe(style)+'</strong><p>'+safe(idea)+'. Style demandé : '+safe(style)+'. Résultat souhaité : création soignée, cohérente et de haute qualité.</p><button class="primary" onclick="copyPrompt()">Copier le prompt</button>';}
+function showChatNotice(e){e.preventDefault();const q=document.getElementById('chat-question').value.trim();if(q)document.getElementById('chat-status').textContent='Ton espace de discussion est prêt pour la connexion. Pour le moment, CHAGUI IA ne peut pas encore répondre : le moteur IA sécurisé doit être configuré.';}
+function copyPrompt(){const v=document.getElementById('prompt').value.trim()+'. Type : '+document.getElementById('type').value+'. Style : '+document.getElementById('style').value+'.';if(navigator.clipboard?.writeText)navigator.clipboard.writeText(v).then(()=>alert('Prompt copié !')).catch(()=>alert(v));else alert(v);}
 </script>
-  
 </body>
 </html>
